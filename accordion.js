@@ -11,20 +11,35 @@
 
 const accordionBtns = document.querySelectorAll(".accordion");
 
-accordionBtns.forEach((accordion) => {
-  accordion.onclick = function () {
-    this.classList.toggle("is-open");
+accordionBtns.forEach((accordion, index) => {
+    accordion.onclick = function () {
+        this.classList.toggle("is-open");
+        let content = this.nextElementSibling;
+        if (this.classList.contains("is-open")) {
+            this.setAttribute("aria-expanded", "true");
+            content.style.maxHeight = content.scrollHeight + "px";
+        } else {
+            this.setAttribute("aria-expanded", "false");
+            content.style.maxHeight = null;
+        }
+    };
 
-    let content = this.nextElementSibling;
-    console.log(content);
-
-    if (content.style.maxHeight) {
-      //this is if the accordion is open
-      content.style.maxHeight = null;
-    } else {
-      //if the accordion is currently closed
-      content.style.maxHeight = content.scrollHeight + "px";
-      console.log(content.style.maxHeight);
-    }
-  };
+    accordion.onkeydown = function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            this.onclick();
+        }
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            let next = index + 1;
+            if (next >= accordionBtns.length) next = 0;
+            accordionBtns[next].focus();
+        }
+        if (e.key === "ArrowUp") {
+            e.preventDefault();
+            let prev = index - 1;
+            if (prev < 0) prev = accordionBtns.length - 1;
+            accordionBtns[prev].focus();
+        }
+    };
 });
