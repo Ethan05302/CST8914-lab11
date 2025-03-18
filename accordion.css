@@ -1,9 +1,6 @@
-/* body {
-	background-color: #6DC4F4;
-}h1 { 
-     color:white;
- 
-} */
+h1 { 
+  color: #000; 
+}
 
 .container {
   width: 80%;
@@ -24,10 +21,13 @@ button.accordion {
   transition: background-color 0.2s linear;
 }
 
+button.accordion:focus {
+  background-color: #666; 
+}
+
 button.accordion:after {
   font-family: FontAwesome;
   content: "\f150";
-  font-family: "fontawesome";
   font-size: 18px;
   float: right;
 }
